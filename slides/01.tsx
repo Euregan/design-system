@@ -102,10 +102,11 @@ const Button = () => {
 
 const First = () => {
   return (
-    <Canvas shadows>
+    <Canvas shadows orthographic camera={{ zoom: 200 }}>
       <OrthographicCamera
+        onUpdate={console.log}
         position={[0, 0, 0]}
-        rotation={[Math.PI / 5, Math.PI / 4, 0]}
+        rotation={[Math.PI * 0.2, Math.PI * 0.25, 0]}
       >
         <ambientLight intensity={0.5} />
         <directionalLight
@@ -124,7 +125,9 @@ const First = () => {
           args={[1000, 1000, 1000]}
           rotation={[-Math.PI / 2, 0, 0]}
           position={[0, -1, 0]}
-        />
+        >
+          <meshStandardMaterial attach="material" color={0xe2e8ed} />
+        </Plane>
       </OrthographicCamera>
     </Canvas>
   )
