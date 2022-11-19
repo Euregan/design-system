@@ -1,19 +1,21 @@
-// import { Square, Circle, Button, Text } from '../ui/Element'
+import { useState } from 'react'
 import Background from '../ui/Background'
-// import Illustration from '../ui/Illustration'
-import First from '../slides/01'
+import DesignSystemIllustration from '../slides/DesignSystemIllustration'
 
-const IndexPage = () => (
-  <Background>
-    <First />
-  </Background>
-)
+const IndexPage = () => {
+  const [display, setDisplay] = useState<'illustration' | 'page'>(
+    'illustration'
+  )
 
-// <Illustration>
-//   <Text />
-//   <Square />
-//   <Circle />
-//   <Button />
-// </Illustration>
+  return (
+    <Background
+      onClick={() =>
+        setDisplay(display === 'illustration' ? 'page' : 'illustration')
+      }
+    >
+      <DesignSystemIllustration display={display} />
+    </Background>
+  )
+}
 
 export default IndexPage
