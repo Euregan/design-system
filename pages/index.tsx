@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Background from '../ui/Background'
+import DemoSite from '../ui/DemoSite'
 import DesignSystemIllustration from '../slides/DesignSystemIllustration'
 
 const IndexPage = () => {
@@ -13,7 +14,8 @@ const IndexPage = () => {
         setDisplay(display === 'illustration' ? 'page' : 'illustration')
       }
     >
-      <DesignSystemIllustration display={display} />
+      {false && <DesignSystemIllustration display={display} />}
+      <DemoSite />
     </Background>
   )
 }
