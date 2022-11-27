@@ -1,7 +1,11 @@
 import * as styles from './DemoSite.css'
 
-const DemoSite = () => (
-  <div className={styles.page}>
+interface Props {
+  display: 'old' | 'new'
+}
+
+const DemoSite = ({ display }: Props) => (
+  <div className={styles.page[display]}>
     <nav className={styles.menu}>
       <div className={styles.tint}>
         <svg
@@ -120,6 +124,15 @@ const DemoSite = () => (
     </nav>
     <section className={styles.main}>
       <div className={styles.topbar}>
+        <div className={styles.breadcrumb}>
+          <svg viewBox="0 0 24 24" width="1em" height="1em">
+            <path
+              d="m12 5.69 5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3 2 12h3v8h6v-6h2v6h6v-8h3L12 3z"
+              fill="currentColor"
+            ></path>
+          </svg>
+          /<div className={styles.breadcrumbLink}>Contracts</div>
+        </div>
         <div className={styles.organization}>
           <svg
             width="1em"
@@ -144,6 +157,28 @@ const DemoSite = () => (
             ></path>
           </svg>
           <span>Tint.ai (demo)</span>
+          <svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 247 246"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            color="currentColor"
+            className={styles.organizationIcon}
+          >
+            <path
+              d="M178.954 66.72V9.548c0-5.273-4.267-9.548-9.53-9.548H68.271C30.57 0 0 30.625 0 68.395v96.006c0 8.215 6.652 14.879 14.852 14.879h53.194l16.262-97.324 94.646-15.236z"
+              fill="#042D87"
+            ></path>
+            <path
+              d="M178.954 66.72l-33.957 91.235-76.951 21.325v56.589c0 5.594 4.529 10.131 10.112 10.131h100.571C216.438 246 247 215.375 247 177.605V80.551c0-7.64-6.179-13.83-13.805-13.83h-54.241z"
+              fill="#06CDEF"
+            ></path>
+            <path
+              d="M178.954 66.72H79.27c-6.2 0-11.224 5.033-11.224 11.245V179.28h99.684c6.201 0 11.224-5.033 11.224-11.245V66.72z"
+              fill="#0D54D1"
+            ></path>
+          </svg>
         </div>
         <div className={styles.product}>
           Demo Product
@@ -158,22 +193,25 @@ const DemoSite = () => (
             <path d="M6.84515 1.27246C7.2435 1.67082 7.2435 2.31669 6.84515 2.71505L3.14618 6.41401L6.84515 10.113C7.2435 10.5113 7.2435 11.1572 6.84515 11.5556C6.44679 11.9539 5.80092 11.9539 5.40256 11.5556L0.982301 7.13531C0.583943 6.73695 0.583943 6.09108 0.982301 5.69272L5.40256 1.27246C5.80092 0.874104 6.44679 0.874104 6.84515 1.27246Z"></path>
           </svg>
         </div>
+        <div className={styles.options}>...</div>
       </div>
       <div className={styles.content}>
         <h1 className={styles.title}>Contracts</h1>
         <div className={styles.filters}>
           <div className={styles.input}>
-            Status
-            <svg
-              viewBox="0 0 8 12"
-              width="1em"
-              height="1em"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-              className={styles.statusChevron}
-            >
-              <path d="M6.84515 1.27246C7.2435 1.67082 7.2435 2.31669 6.84515 2.71505L3.14618 6.41401L6.84515 10.113C7.2435 10.5113 7.2435 11.1572 6.84515 11.5556C6.44679 11.9539 5.80092 11.9539 5.40256 11.5556L0.982301 7.13531C0.583943 6.73695 0.583943 6.09108 0.982301 5.69272L5.40256 1.27246C5.80092 0.874104 6.44679 0.874104 6.84515 1.27246Z"></path>
-            </svg>
+            <div className={styles.label}>Status</div>
+            <div className={styles.select}>
+              <svg
+                viewBox="0 0 8 12"
+                width="1em"
+                height="1em"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                className={styles.statusChevron}
+              >
+                <path d="M6.84515 1.27246C7.2435 1.67082 7.2435 2.31669 6.84515 2.71505L3.14618 6.41401L6.84515 10.113C7.2435 10.5113 7.2435 11.1572 6.84515 11.5556C6.44679 11.9539 5.80092 11.9539 5.40256 11.5556L0.982301 7.13531C0.583943 6.73695 0.583943 6.09108 0.982301 5.69272L5.40256 1.27246C5.80092 0.874104 6.44679 0.874104 6.84515 1.27246Z"></path>
+              </svg>
+            </div>
           </div>
           <div className={styles.input}>
             <svg
@@ -187,7 +225,8 @@ const DemoSite = () => (
                 d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
               ></path>
             </svg>
-            Coverage date from
+            <div className={styles.placeholderToLabel}>Coverage date from</div>
+            <div className={styles.date}>mm/dd/yyyy</div>
           </div>
           <div className={styles.input}>
             <svg
@@ -201,24 +240,28 @@ const DemoSite = () => (
                 d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
               ></path>
             </svg>
-            Coverage date to
+            <div className={styles.placeholderToLabel}>Coverage date to</div>
+            <div className={styles.date}>mm/dd/yyyy</div>
           </div>
           <div className={styles.input}>
-            <svg
-              width="1em"
-              height="1em"
-              viewBox="0 0 15 15"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              color="currentColor"
-              className={styles.searchIcon}
-            >
-              <path
-                d="M13.836 15c-.31 0-.6-.12-.815-.34l-4.065-4.09a5.76 5.76 0 01-3.186.97A5.775 5.775 0 010 5.77C0 2.59 2.585 0 5.77 0c3.186 0 5.77 2.59 5.77 5.77 0 1.14-.332 2.22-.954 3.17l4.076 4.1c.45.45.45 1.18 0 1.63-.225.21-.515.33-.826.33zM5.77 2.31a3.465 3.465 0 00-3.464 3.46 3.465 3.465 0 006.929 0c0-1.91-1.555-3.46-3.465-3.46z"
-                fill="currentColor"
-              ></path>
-            </svg>
-            Contract ID, person, asset, location...
+            <div className={styles.newLabel}>Search by</div>
+            <div className={styles.search}>
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 15 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                color="currentColor"
+                className={styles.searchIcon}
+              >
+                <path
+                  d="M13.836 15c-.31 0-.6-.12-.815-.34l-4.065-4.09a5.76 5.76 0 01-3.186.97A5.775 5.775 0 010 5.77C0 2.59 2.585 0 5.77 0c3.186 0 5.77 2.59 5.77 5.77 0 1.14-.332 2.22-.954 3.17l4.076 4.1c.45.45.45 1.18 0 1.63-.225.21-.515.33-.826.33zM5.77 2.31a3.465 3.465 0 00-3.464 3.46 3.465 3.465 0 006.929 0c0-1.91-1.555-3.46-3.465-3.46z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+              Contract ID, person, asset, location...
+            </div>
           </div>
         </div>
         <table className={styles.table}>
@@ -234,7 +277,7 @@ const DemoSite = () => (
           <tbody>
             <tr className={styles.tableRow}>
               <td className={styles.tableCell}>
-                <div className={styles.chip.gray}>DRAFT</div>
+                <div className={styles.chip.gray}>Draft</div>
               </td>
               <td className={styles.tableCell}>N/A</td>
               <td className={styles.tableCell}>6/27/2021</td>
@@ -248,7 +291,7 @@ const DemoSite = () => (
             </tr>
             <tr className={styles.tableRow}>
               <td className={styles.tableCell}>
-                <div className={styles.chip.green}>ISSUED</div>
+                <div className={styles.chip.green}>Issued</div>
               </td>
               <td className={styles.tableCell}>N/A</td>
               <td className={styles.tableCell}>5/2/2021</td>
@@ -262,7 +305,7 @@ const DemoSite = () => (
             </tr>
             <tr className={styles.tableRow}>
               <td className={styles.tableCell}>
-                <div className={styles.chip.gray}>DRAFT</div>
+                <div className={styles.chip.gray}>Draft</div>
               </td>
               <td className={styles.tableCell}>N/A</td>
               <td className={styles.tableCell}>7/24/2021</td>
@@ -276,7 +319,7 @@ const DemoSite = () => (
             </tr>
             <tr className={styles.tableRow}>
               <td className={styles.tableCell}>
-                <div className={styles.chip.gray}>DRAFT</div>
+                <div className={styles.chip.gray}>Draft</div>
               </td>
               <td className={styles.tableCell}>N/A</td>
               <td className={styles.tableCell}>7/14/2021</td>

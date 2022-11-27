@@ -1,24 +1,49 @@
 import { style, styleVariants, fontFace } from '@vanilla-extract/css'
 
 const roboto = fontFace({
-  src: 'url(/Roboto-Regular.ttf)',
+  src: 'url(/Roboto.ttf)',
+  fontWeight: '0 1999',
+})
+const inter = fontFace({
+  src: 'url(/Inter.ttf)',
+  fontWeight: '0 1999',
 })
 
+const transition = 'all 0.5s'
+
 const darkblue = '#00367e'
-const blue = '#00439e'
-const lightblue = '#7da0ce'
+const blue = { old: '#00439e', new: '#0D54D1' }
+const lightblue = { old: '#7da0ce', new: '#ecf3ff' }
 
-const darkgray = '#6f707c'
-const gray = '#999999'
-const lightgray = '#c7c9d3'
+const darkgray = { old: '#6f707c', new: '#676C77' }
+const gray = { old: '#999999', new: '#7e8aa4' }
+const lightgray = { old: '#c7c9d3', new: '#f9fafc' }
 
-export const page = style({
+const pageBase = style({
   display: 'grid',
   gridTemplateColumns: '250px auto',
   height: '100%',
   width: '100%',
-  fontFamily: roboto,
   overflow: 'hidden',
+  transition,
+})
+
+export const page = styleVariants({
+  old: [
+    pageBase,
+    {
+      gridTemplateColumns: '250px auto',
+      fontFamily: roboto,
+    },
+  ],
+  new: [
+    pageBase,
+    {
+      gridTemplateColumns: '295px auto',
+      fontFamily: inter,
+      background: 'white',
+    },
+  ],
 })
 
 // NAV
@@ -26,51 +51,121 @@ export const page = style({
 export const menu = style({
   position: 'relative',
   height: '100%',
-  background: blue,
-  color: 'white',
+  display: 'flex',
+  flexDirection: 'column',
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      background: blue.old,
+      color: 'white',
+      gap: '0px',
+    },
+    [`.${page.new} &`]: {
+      background: lightblue.new,
+      color: 'black',
+      paddingLeft: '8px',
+      borderTopRightRadius: '22px',
+      gap: '8px',
+      boxShadow: '0px 0px 12px 10px rgba(16, 24, 40, 0.03)',
+    },
+  },
 })
 
 export const tint = style({
-  height: '50px',
   display: 'flex',
   gap: '15px',
   alignItems: 'center',
-  fontSize: '30px',
-  padding: '20px 20px 6px',
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      fontSize: '30px',
+      height: '50px',
+      padding: '20px 20px 6px',
+    },
+    [`.${page.new} &`]: {
+      fontSize: '22px',
+      height: '40px',
+      padding: '18px 20px 12px',
+    },
+  },
 })
 
 export const menuItem = style({
-  height: '50px',
   display: 'flex',
-  gap: '15px',
   alignItems: 'center',
-  fontSize: '14px',
-  color: lightblue,
-  padding: '5px 32px',
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      height: '50px',
+      padding: '5px 32px',
+      color: lightblue.old,
+      fontSize: '14px',
+      gap: '15px',
+    },
+    [`.${page.new} &`]: {
+      height: '30px',
+      padding: '6px 8px',
+      marginLeft: '11px',
+      marginRight: '20px',
+      color: darkgray.new,
+      fontWeight: 600,
+      fontSize: '14px',
+      gap: '16px',
+    },
+  },
 })
 
 export const activeMenuItem = style([
   menuItem,
   {
-    background: darkblue,
-    borderLeft: '5px solid white',
-    color: 'white',
+    transition,
+    selectors: {
+      [`.${page.old} &`]: {
+        color: 'white',
+        background: darkblue,
+        borderLeft: '5px solid white',
+      },
+      [`.${page.new} &`]: {
+        color: blue.new,
+        background: '#e1ebfc',
+        borderRadius: '3px',
+        borderLeft: '0px solid white',
+      },
+    },
   },
 ])
 
 export const menuItemIcon = style({
-  fontSize: '25px',
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      fontSize: '25px',
+    },
+    [`.${page.new} &`]: {
+      fontSize: '15px',
+    },
+  },
 })
 
 export const collapse = style({
   position: 'absolute',
   top: '20px',
-  right: '-18px',
-  background: 'white',
   color: darkblue,
   padding: '8px 12px',
   borderRadius: '5px',
-  boxShadow: '0px 0px 8px 2px rgba(16, 24, 40, 0.15)',
+  zIndex: 5,
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      right: '-18px',
+      boxShadow: '0px 0px 8px 2px rgba(16, 24, 40, 0.15)',
+      background: 'white',
+    },
+    [`.${page.new} &`]: {
+      right: '14px',
+      fontSize: '18px',
+    },
+  },
 })
 
 // MAIN
@@ -78,44 +173,152 @@ export const collapse = style({
 export const main = style({
   display: 'grid',
   gridTemplateRows: '80px auto',
-  background: '#f8f8f8',
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      background: '#f8f8f8',
+    },
+    [`.${page.new} &`]: {
+      background: 'white',
+    },
+  },
 })
 
 // TOP BAR
 
 export const topbar = style({
-  height: '80px',
+  position: 'relative',
   background: 'white',
   display: 'flex',
   gap: '25px',
   alignItems: 'center',
-  paddingLeft: '40px',
-  boxShadow: '0px 0px 12px 10px rgba(16, 24, 40, 0.02)',
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      boxShadow: '0px 0px 12px 10px rgba(16, 24, 40, 0.02)',
+      width: '100%',
+      paddingLeft: '40px',
+      paddingTop: '0',
+      height: '80px',
+      margin: '0',
+    },
+    [`.${page.new} &`]: {
+      width: '690px',
+      paddingLeft: '0',
+      paddingTop: '30px',
+      height: '40px',
+      margin: '0 146.5px',
+    },
+  },
+})
+
+export const breadcrumb = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '1em',
+  overflow: 'hidden',
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      width: '0',
+    },
+    [`.${page.new} &`]: {
+      width: '120px',
+      color: darkgray.new,
+    },
+  },
+})
+
+export const breadcrumbLink = style({
+  color: blue.new,
+  fontWeight: 500,
+  fontSize: '14px',
 })
 
 export const organization = style({
+  position: 'absolute',
   display: 'flex',
   alignItems: 'center',
   gap: '15px',
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      left: '65px',
+    },
+    [`.${page.new} &`]: {
+      left: '470px',
+    },
+  },
 })
 
 export const organizationIcon = style({
-  fontSize: '25px',
+  transition,
+  selectors: {
+    [`.${page.old} &:first-child`]: {
+      fontSize: '25px',
+      width: '25px',
+    },
+    [`.${page.old} &:last-child`]: {
+      fontSize: '20px',
+      width: '0',
+    },
+    [`.${page.new} &:first-child`]: {
+      fontSize: '25px',
+      width: '0',
+    },
+    [`.${page.new} &:last-child`]: {
+      fontSize: '20px',
+      width: '20px',
+    },
+  },
 })
 
 export const product = style({
-  color: darkgray,
+  position: 'absolute',
+  color: darkgray.old,
   fontWeight: 500,
-  fontSize: '18px',
   display: 'flex',
   gap: '5px',
   alignItems: 'center',
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      fontSize: '18px',
+      left: '245px',
+    },
+    [`.${page.new} &`]: {
+      fontSize: '13px',
+      left: '355px',
+    },
+  },
 })
 
 export const productIcon = style({
   fontSize: '12px',
-  color: lightgray,
+  color: lightgray.old,
   transform: 'rotate(-90deg)',
+})
+
+export const options = style({
+  position: 'absolute',
+  boxSizing: 'border-box',
+  width: ' 36px',
+  height: '36px',
+  border: '1px solid #dfe5f2',
+  borderRadius: '8px',
+  boxShadow: '0px 1px 2px 0px #1018280D',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      left: '1200px',
+    },
+    [`.${page.new} &`]: {
+      left: '650px',
+    },
+  },
 })
 
 // CONTENT
@@ -123,32 +326,180 @@ export const productIcon = style({
 export const content = style({
   display: 'flex',
   flexDirection: 'column',
-  padding: '35px 45px',
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      margin: '0 0',
+      width: '100%',
+      padding: '35px 45px',
+    },
+    [`.${page.new} &`]: {
+      margin: '0 146.5px',
+      width: '690px',
+      padding: '82px 0',
+    },
+  },
 })
 
 export const title = style({
   margin: 0,
   fontWeight: 500,
-  fontSize: '26px',
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      fontSize: '26px',
+    },
+    [`.${page.new} &`]: {
+      fontSize: '32px',
+    },
+  },
 })
 
 export const filters = style({
-  paddingTop: '40px',
   display: 'grid',
-  gridTemplateColumns: '120px 290px 290px 400px',
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      paddingTop: '40px',
+      gridTemplateColumns: '120px 290px 290px 400px',
+    },
+    [`.${page.new} &`]: {
+      paddingTop: '42px',
+      gap: '10px',
+      gridTemplateColumns: '165px 165px 165px 165px',
+    },
+  },
 })
 
 export const input = style({
+  position: 'relative',
   fontSize: '18px',
-  color: gray,
+  color: gray.old,
   display: 'flex',
   gap: '5px',
-  alignItems: 'center',
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      alignItems: 'center',
+    },
+    [`.${page.new} &`]: {
+      height: '66px',
+      alignItems: 'flex-start',
+    },
+  },
 })
+
+export const label = style({
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      color: gray.old,
+      fontSize: '18px',
+    },
+    [`.${page.new} &`]: {
+      color: '#4c5a76',
+      fontWeight: 500,
+      fontSize: '16px',
+    },
+  },
+})
+
+export const newLabel = style([
+  label,
+  {
+    transition,
+    selectors: {
+      [`.${page.old} &`]: {
+        height: 0,
+      },
+      [`.${page.new} &`]: {
+        height: '20px',
+      },
+    },
+  },
+])
+
+export const placeholderToLabel = style({
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {},
+    [`.${page.new} &`]: {
+      color: '#4c5a76',
+      fontWeight: 500,
+      fontSize: '16px',
+    },
+  },
+})
+
+export const inputContent = style({
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      height: 0,
+      overflow: 'hidden',
+    },
+    [`.${page.new} &`]: {
+      boxSizing: 'border-box',
+      width: ' 100%',
+      height: '36px',
+      border: '1px solid #dfe5f2',
+      borderRadius: '8px',
+      boxShadow: '0px 1px 2px 0px #1018280D',
+    },
+  },
+})
+
+export const select = style([
+  inputContent,
+  {
+    transition,
+    selectors: {
+      [`.${page.new} &`]: {
+        position: 'absolute',
+        top: '28px',
+      },
+    },
+  },
+])
+
+export const date = style([
+  inputContent,
+  {
+    transition,
+    selectors: {
+      [`.${page.new} &`]: {
+        position: 'absolute',
+        padding: '6px 10px',
+        top: '28px',
+      },
+    },
+  },
+])
+
+export const search = style([
+  inputContent,
+  {
+    transition,
+    selectors: {
+      [`.${page.new} &`]: {
+        position: 'absolute',
+        padding: '6px 10px',
+        top: '28px',
+      },
+    },
+  },
+])
 
 export const inputIcon = style({
   fontSize: '27px',
-  color: darkgray,
+  color: darkgray.old,
+  transition,
+  selectors: {
+    [`.${page.new} &`]: {
+      width: '0',
+      overflow: 'hidden',
+    },
+  },
 })
 
 export const searchIcon = style([
@@ -156,13 +507,21 @@ export const searchIcon = style([
   {
     fontSize: '20px',
     color: darkblue,
-    paddingRight: '10px',
+    transition,
+    selectors: {
+      [`.${page.old} &`]: {
+        paddingRight: '10px',
+      },
+      [`.${page.new} &`]: {
+        paddingRight: '0px',
+      },
+    },
   },
 ])
 
 export const statusChevron = style({
   fontSize: '7px',
-  color: gray,
+  color: gray.old,
   transform: 'rotate(-90deg) translateY(16px)',
 })
 
@@ -170,45 +529,104 @@ export const statusChevron = style({
 
 export const table = style({
   marginTop: '22px',
-  border: 'solid 1px #f0f0f0',
-  borderRadius: '4px',
   borderSpacing: 0,
+  overflow: 'hidden',
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      borderRadius: '4px',
+      border: 'solid 1px #f0f0f0',
+      width: '100%',
+    },
+    [`.${page.new} &`]: {
+      borderRadius: '8px',
+      border: 'solid 1px #dfe5f2',
+      width: '690px',
+    },
+  },
 })
 
 export const tableHead = style({
-  background: 'white',
   display: 'grid',
-  gridTemplateColumns: '115px 130px 148px 280px 110px 145px 200px',
+  overflow: 'hidden',
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      background: 'white',
+      fontSize: '16px',
+      borderBottom: '0px solid #dfe5f2',
+      width: '100%',
+      gridTemplateColumns: '115px 130px 148px 280px 110px 145px 200px',
+    },
+    [`.${page.new} &`]: {
+      background: lightgray.new,
+      color: gray.new,
+      fontSize: '13px',
+      borderBottom: '1px solid #dfe5f2',
+      width: '690px',
+      gridTemplateColumns: '115px 130px 148px 330px 110px 145px 200px',
+    },
+  },
 })
 
 export const tableHeadCell = style({
-  padding: '24px 18px',
-  fontSize: '16px',
   textAlign: 'left',
-  fontWeight: 400,
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      fontWeight: 400,
+      padding: '24px 18px',
+    },
+    [`.${page.new} &`]: {
+      fontWeight: 500,
+      padding: '15px 22px',
+    },
+  },
 })
 
 export const tableRow = style({
   display: 'grid',
-  gridTemplateColumns: '115px 130px 148px 280px 110px 145px 200px',
   alignItems: 'center',
+  overflow: 'hidden',
+  transition,
   selectors: {
-    '&:nth-child(even)': {
+    [`.${page.old} &:nth-child(even)`]: {
       background: 'white',
+      borderBottom: '0px solid #dfe5f2',
+      width: '100%',
+      gridTemplateColumns: '115px 130px 148px 280px 110px 145px 200px',
     },
-    '&:nth-child(odd)': {
+    [`.${page.old} &:nth-child(odd)`]: {
       background: '#fafafc',
+      borderBottom: '0px solid #dfe5f2',
+      width: '100%',
+      gridTemplateColumns: '115px 130px 148px 280px 110px 145px 200px',
+    },
+    [`.${page.new} &`]: {
+      background: 'white',
+      borderBottom: '1px solid #dfe5f2',
+      width: '690px',
+      gridTemplateColumns: '115px 130px 148px 330px 110px 145px 200px',
     },
   },
 })
 
 export const tableCell = style({
-  color: darkgray,
-  padding: '20px 18px',
   display: 'flex',
   gap: '1em',
   alignItems: 'center',
   lineHeight: '24px',
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      color: darkgray.old,
+      padding: '20px 18px',
+    },
+    [`.${page.new} &`]: {
+      color: darkgray.new,
+      padding: '10px 22px',
+    },
+  },
 })
 
 export const nowrap = style({
@@ -217,16 +635,67 @@ export const nowrap = style({
 
 const chipBase = style({
   fontWeight: 500,
-  padding: '8px 16px',
-  borderRadius: '19px',
   width: 'fit-content',
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      fontSize: '12px',
+      padding: '8px 16px',
+      borderRadius: '19px',
+      textTransform: 'uppercase',
+    },
+    [`.${page.new} &`]: {
+      fontSize: '13px',
+      lineHeight: '18px',
+      padding: '2px 8px',
+      borderRadius: '7px',
+    },
+  },
 })
 
 export const chip = styleVariants({
-  gray: [chipBase, { color: '#60616d', background: '#f0f0f0' }],
-  green: [chipBase, { color: '#23721d', background: '#f3fbf2' }],
+  gray: [
+    chipBase,
+    {
+      transition,
+      selectors: {
+        [`.${page.old} &`]: {
+          color: '#60616d',
+          background: '#f0f0f0',
+          border: `0px solid #dfe5f2`,
+        },
+        [`.${page.new} &`]: {
+          color: gray.new,
+          background: '#eff1f7',
+          border: `1px solid #dfe5f2`,
+        },
+      },
+    },
+  ],
+  green: [
+    chipBase,
+    {
+      transition,
+      selectors: {
+        [`.${page.old} &`]: { color: '#23721d', background: '#f3fbf2' },
+        [`.${page.new} &`]: {
+          color: '#12abf4',
+          background: '#e7f7ff',
+          border: `1px solid #c0e9fd`,
+        },
+      },
+    },
+  ],
 })
 
 export const details = style({
-  color: lightgray,
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      color: lightgray.old,
+    },
+    [`.${page.new} &`]: {
+      color: darkgray.new,
+    },
+  },
 })
