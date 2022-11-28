@@ -57,10 +57,11 @@ const IndexPage = () => {
     'illustration' | 'page'
   >('illustration')
   const [demoDisplay, setDemoDisplay] = useState<'old' | 'new'>('old')
-  const [slide, setSlide] = useState<Slide>('search')
+  const [slide, setSlide] = useState<Slide>('page')
 
   return (
     <Background
+      onRightClick={() => setSlide(previous(slide))}
       onClick={() => {
         setIllustrationDisplay(
           illustrationDisplay === 'illustration' ? 'page' : 'illustration'
@@ -70,7 +71,7 @@ const IndexPage = () => {
       }}
     >
       {false && <DesignSystemIllustration display={illustrationDisplay} />}
-      <DemoSite display={'search'} />
+      <DemoSite display={slide} />
     </Background>
   )
 }
