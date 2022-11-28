@@ -1,7 +1,7 @@
 import * as styles from './DemoSite.css'
 
 interface Props {
-  display: 'old' | 'new'
+  display: 'old' | 'new' | 'search'
 }
 
 const DemoSite = ({ display }: Props) => (
@@ -260,7 +260,7 @@ const DemoSite = ({ display }: Props) => (
                   fill="currentColor"
                 ></path>
               </svg>
-              Contract ID, person, asset, location...
+              Contract ID
             </div>
           </div>
         </div>

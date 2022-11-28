@@ -21,10 +21,10 @@ const lightgray = { old: '#c7c9d3', new: '#f9fafc' }
 
 const pageBase = style({
   display: 'grid',
-  gridTemplateColumns: '250px auto',
   height: '100%',
   width: '100%',
   overflow: 'hidden',
+  fontFamily: inter,
   transition,
 })
 
@@ -40,7 +40,15 @@ export const page = styleVariants({
     pageBase,
     {
       gridTemplateColumns: '295px auto',
-      fontFamily: inter,
+      background: 'white',
+    },
+  ],
+  search: [
+    pageBase,
+    {
+      gridTemplateColumns: '0 auto',
+      alignItems: 'center',
+      justifyItems: 'center',
       background: 'white',
     },
   ],
@@ -53,6 +61,7 @@ export const menu = style({
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
+  overflow: 'hidden',
   transition,
   selectors: {
     [`.${page.old} &`]: {
@@ -67,6 +76,9 @@ export const menu = style({
       borderTopRightRadius: '22px',
       gap: '8px',
       boxShadow: '0px 0px 12px 10px rgba(16, 24, 40, 0.03)',
+    },
+    [`.${page.search} &`]: {
+      width: 0,
     },
   },
 })
@@ -181,6 +193,9 @@ export const main = style({
     [`.${page.new} &`]: {
       background: 'white',
     },
+    [`.${page.search} &`]: {
+      gridTemplateRows: '0 auto',
+    },
   },
 })
 
@@ -208,6 +223,10 @@ export const topbar = style({
       paddingTop: '30px',
       height: '40px',
       margin: '0 146.5px',
+    },
+    [`.${page.search} &`]: {
+      height: 0,
+      overflow: 'hidden',
     },
   },
 })
@@ -344,6 +363,7 @@ export const content = style({
 export const title = style({
   margin: 0,
   fontWeight: 500,
+  overflow: 'hidden',
   transition,
   selectors: {
     [`.${page.old} &`]: {
@@ -351,6 +371,9 @@ export const title = style({
     },
     [`.${page.new} &`]: {
       fontSize: '32px',
+    },
+    [`.${page.search} &`]: {
+      height: '0',
     },
   },
 })
@@ -386,17 +409,21 @@ export const input = style({
       height: '66px',
       alignItems: 'flex-start',
     },
+    [`.${page.search} &`]: {
+      height: '0',
+    },
   },
 })
 
 export const label = style({
+  overflow: 'hidden',
   transition,
   selectors: {
     [`.${page.old} &`]: {
       color: gray.old,
       fontSize: '18px',
     },
-    [`.${page.new} &`]: {
+    [`.${page.new} &, .${page.search} &`]: {
       color: '#4c5a76',
       fontWeight: 500,
       fontSize: '16px',
@@ -415,11 +442,16 @@ export const newLabel = style([
       [`.${page.new} &`]: {
         height: '20px',
       },
+      [`.${page.search} &`]: {
+        fontSize: '28px',
+        height: '34px',
+      },
     },
   },
 ])
 
 export const placeholderToLabel = style({
+  overflow: 'hidden',
   transition,
   selectors: {
     [`.${page.old} &`]: {},
@@ -428,23 +460,32 @@ export const placeholderToLabel = style({
       fontWeight: 500,
       fontSize: '16px',
     },
+    [`.${page.search} &`]: {
+      height: '0',
+    },
   },
 })
 
 export const inputContent = style({
+  overflow: 'hidden',
   transition,
   selectors: {
     [`.${page.old} &`]: {
       height: 0,
       overflow: 'hidden',
     },
-    [`.${page.new} &`]: {
+    [`.${page.new} &, .${page.search} &`]: {
       boxSizing: 'border-box',
       width: ' 100%',
       height: '36px',
       border: '1px solid #dfe5f2',
       borderRadius: '8px',
       boxShadow: '0px 1px 2px 0px #1018280D',
+    },
+    [`.${page.search} &`]: {
+      border: 'none',
+      boxShadow: 'none',
+      height: '0',
     },
   },
 })
@@ -458,6 +499,7 @@ export const select = style([
         position: 'absolute',
         top: '28px',
       },
+      [`.${page.search} &`]: { height: 0 },
     },
   },
 ])
@@ -481,10 +523,24 @@ export const search = style([
   {
     transition,
     selectors: {
-      [`.${page.new} &`]: {
+      [`.${page.new} &, .${page.search} &`]: {
         position: 'absolute',
         padding: '6px 10px',
         top: '28px',
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
+      },
+      [`.${page.search} &`]: {
+        top: '42px',
+        fontSize: '32px',
+        height: '72px',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 20px',
+        gap: '20px',
+        border: '2px solid #dfe5f2',
+        borderRadius: '16px',
+        boxShadow: '0px 2px 4px rgba(16, 24, 40, 0.05)',
       },
     },
   },
@@ -495,7 +551,7 @@ export const inputIcon = style({
   color: darkgray.old,
   transition,
   selectors: {
-    [`.${page.new} &`]: {
+    [`.${page.new} &, .${page.search} &`]: {
       width: '0',
       overflow: 'hidden',
     },
@@ -506,14 +562,21 @@ export const searchIcon = style([
   inputIcon,
   {
     fontSize: '20px',
-    color: darkblue,
     transition,
     selectors: {
       [`.${page.old} &`]: {
         paddingRight: '10px',
+        color: darkblue,
       },
-      [`.${page.new} &`]: {
+      [`.${page.new} &, .${page.search} &`]: {
+        width: '20px',
         paddingRight: '0px',
+        color: darkgray.new,
+      },
+      [`.${page.search} &`]: {
+        fontSize: '32px',
+        width: '32px',
+        height: '32px',
       },
     },
   },
@@ -543,6 +606,7 @@ export const table = style({
       border: 'solid 1px #dfe5f2',
       width: '690px',
     },
+    [`.${page.search} &`]: { height: 0 },
   },
 })
 
@@ -566,6 +630,7 @@ export const tableHead = style({
       width: '690px',
       gridTemplateColumns: '115px 130px 148px 330px 110px 145px 200px',
     },
+    [`.${page.search} &`]: { height: 0 },
   },
 })
 
@@ -608,6 +673,7 @@ export const tableRow = style({
       width: '690px',
       gridTemplateColumns: '115px 130px 148px 330px 110px 145px 200px',
     },
+    [`.${page.search} &`]: { height: 0 },
   },
 })
 
