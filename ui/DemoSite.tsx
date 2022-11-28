@@ -1,7 +1,7 @@
 import * as styles from './DemoSite.css'
 
 interface Props {
-  display: 'old' | 'new' | 'search'
+  display: 'old' | 'new' | 'search' | 'select'
 }
 
 const DemoSite = ({ display }: Props) => (
@@ -262,6 +262,11 @@ const DemoSite = ({ display }: Props) => (
               </svg>
               Contract ID
             </div>
+            <ul className={styles.dropdown}>
+              <li className={styles.option}>Stuff</li>
+              <li className={styles.option}>Stuff</li>
+              <li className={styles.option}>Stuff</li>
+            </ul>
           </div>
         </div>
         <table className={styles.table}>
