@@ -243,7 +243,7 @@ const DemoSite = ({ display }: Props) => (
             <div className={styles.placeholderToLabel}>Coverage date to</div>
             <div className={styles.date}>mm/dd/yyyy</div>
           </div>
-          <div className={styles.input}>
+          <div className={styles.searchInput}>
             <div className={styles.newLabel}>Search by</div>
             <div className={styles.search}>
               <svg

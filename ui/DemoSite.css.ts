@@ -415,6 +415,19 @@ export const input = style({
   },
 })
 
+export const searchInput = style([
+  input,
+  {
+    transition,
+    selectors: {
+      [`.${page.search} &`]: {
+        height: '114px',
+        width: '400px',
+      },
+    },
+  },
+])
+
 export const label = style({
   overflow: 'hidden',
   transition,
