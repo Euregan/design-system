@@ -1,7 +1,13 @@
 import * as styles from './DemoSite.css'
 
 interface Props {
-  display: 'old' | 'new' | 'search' | 'select'
+  display:
+    | 'old'
+    | 'new'
+    | 'search'
+    | 'select'
+    | 'autocomplete'
+    | 'filteredSelect'
 }
 
 const DemoSite = ({ display }: Props) => (
@@ -245,6 +251,7 @@ const DemoSite = ({ display }: Props) => (
           </div>
           <div className={styles.searchInput}>
             <div className={styles.newLabel}>Search by</div>
+            <div className={styles.selectLabel}>User</div>
             <div className={styles.search}>
               <svg
                 width="1em"
@@ -261,11 +268,22 @@ const DemoSite = ({ display }: Props) => (
                 ></path>
               </svg>
               Contract ID
+              <div className={styles.autocompleteContent}>Peter</div>
+              <svg
+                viewBox="0 0 8 12"
+                width="1em"
+                height="1em"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                className={styles.selectChevron}
+              >
+                <path d="M6.84515 1.27246C7.2435 1.67082 7.2435 2.31669 6.84515 2.71505L3.14618 6.41401L6.84515 10.113C7.2435 10.5113 7.2435 11.1572 6.84515 11.5556C6.44679 11.9539 5.80092 11.9539 5.40256 11.5556L0.982301 7.13531C0.583943 6.73695 0.583943 6.09108 0.982301 5.69272L5.40256 1.27246C5.80092 0.874104 6.44679 0.874104 6.84515 1.27246Z"></path>
+              </svg>
             </div>
             <ul className={styles.dropdown}>
-              <li className={styles.option}>Stuff</li>
-              <li className={styles.option}>Stuff</li>
-              <li className={styles.option}>Stuff</li>
+              <li className={styles.option}>Peter Kropotkin</li>
+              <li className={styles.optionFiltered}>Noam Chomsky</li>
+              <li className={styles.option}>Peter Singer</li>
             </ul>
           </div>
         </div>

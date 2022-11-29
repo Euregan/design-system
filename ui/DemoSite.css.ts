@@ -40,6 +40,8 @@ export const page = styleVariants({
     pageBase,
     {
       gridTemplateColumns: '295px auto',
+      alignItems: 'center',
+      justifyItems: 'center',
       background: 'white',
     },
   ],
@@ -61,6 +63,24 @@ export const page = styleVariants({
       background: 'white',
     },
   ],
+  autocomplete: [
+    pageBase,
+    {
+      gridTemplateColumns: '0 auto',
+      alignItems: 'center',
+      justifyItems: 'center',
+      background: 'white',
+    },
+  ],
+  filteredSelect: [
+    pageBase,
+    {
+      gridTemplateColumns: '0 auto',
+      alignItems: 'center',
+      justifyItems: 'center',
+      background: 'white',
+    },
+  ],
 })
 
 // NAV
@@ -71,6 +91,7 @@ export const menu = style({
   display: 'flex',
   flexDirection: 'column',
   overflow: 'hidden',
+  width: '100%',
   transition,
   selectors: {
     [`.${page.old} &`]: {
@@ -86,7 +107,7 @@ export const menu = style({
       gap: '8px',
       boxShadow: '0px 0px 12px 10px rgba(16, 24, 40, 0.03)',
     },
-    [`.${page.search} &, .${page.select} &`]: {
+    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       width: 0,
     },
   },
@@ -202,7 +223,7 @@ export const main = style({
     [`.${page.new} &`]: {
       background: 'white',
     },
-    [`.${page.search} &, .${page.select} &`]: {
+    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       gridTemplateRows: '0 auto',
     },
   },
@@ -233,7 +254,7 @@ export const topbar = style({
       height: '40px',
       margin: '0 146.5px',
     },
-    [`.${page.search} &, .${page.select} &`]: {
+    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       height: 0,
       overflow: 'hidden',
     },
@@ -250,7 +271,7 @@ export const breadcrumb = style({
     [`.${page.old} &`]: {
       width: '0',
     },
-    [`.${page.new} &`]: {
+    [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       width: '120px',
       color: darkgray.new,
     },
@@ -273,7 +294,7 @@ export const organization = style({
     [`.${page.old} &`]: {
       left: '65px',
     },
-    [`.${page.new} &`]: {
+    [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       left: '470px',
     },
   },
@@ -314,7 +335,7 @@ export const product = style({
       fontSize: '18px',
       left: '245px',
     },
-    [`.${page.new} &`]: {
+    [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       fontSize: '13px',
       left: '355px',
     },
@@ -343,7 +364,7 @@ export const options = style({
     [`.${page.old} &`]: {
       left: '1200px',
     },
-    [`.${page.new} &`]: {
+    [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       left: '650px',
     },
   },
@@ -380,8 +401,9 @@ export const title = style({
     },
     [`.${page.new} &`]: {
       fontSize: '32px',
+      height: '39px',
     },
-    [`.${page.search} &, .${page.select} &`]: {
+    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       height: '0',
     },
   },
@@ -400,6 +422,11 @@ export const filters = style({
       gap: '10px',
       gridTemplateColumns: '165px 165px 165px 165px',
     },
+    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+      paddingTop: '0',
+      gap: '0',
+      gridTemplateColumns: '0 0 0 400px',
+    },
   },
 })
 
@@ -417,9 +444,10 @@ export const input = style({
     [`.${page.new} &`]: {
       height: '66px',
       alignItems: 'flex-start',
+      width: '100%',
     },
-    [`.${page.search} &, .${page.select} &`]: {
-      height: '0',
+    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+      width: '100%',
     },
   },
 })
@@ -429,11 +457,13 @@ export const searchInput = style([
   {
     transition,
     selectors: {
-      [`.${page.search} &, .${page.select} &`]: {
+      [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+        flexDirection: 'column',
+        gap: 0,
         height: '114px',
         width: '400px',
       },
-      [`.${page.select} &`]: {
+      [`.${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
         position: 'relative',
       },
     },
@@ -448,7 +478,7 @@ export const label = style({
       color: gray.old,
       fontSize: '18px',
     },
-    [`.${page.new} &, .${page.search} &, .${page.select} &`]: {
+    [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       color: '#4c5a76',
       fontWeight: 500,
       fontSize: '16px',
@@ -467,7 +497,23 @@ export const newLabel = style([
       [`.${page.new} &`]: {
         height: '20px',
       },
-      [`.${page.search} &, .${page.select} &`]: {
+      [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+        fontSize: '28px',
+        height: '34px',
+      },
+      [`.${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+        height: '0',
+      },
+    },
+  },
+])
+
+export const selectLabel = style([
+  label,
+  {
+    height: 0,
+    selectors: {
+      [`.${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
         fontSize: '28px',
         height: '34px',
       },
@@ -485,7 +531,7 @@ export const placeholderToLabel = style({
       fontWeight: 500,
       fontSize: '16px',
     },
-    [`.${page.search} &, .${page.select} &`]: {
+    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       height: '0',
     },
   },
@@ -499,7 +545,7 @@ export const inputContent = style({
       height: 0,
       overflow: 'hidden',
     },
-    [`.${page.new} &, .${page.search} &, .${page.select} &`]: {
+    [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       boxSizing: 'border-box',
       width: ' 100%',
       height: '36px',
@@ -507,7 +553,7 @@ export const inputContent = style({
       borderRadius: '8px',
       boxShadow: '0px 1px 2px 0px #1018280D',
     },
-    [`.${page.search} &, .${page.select} &`]: {
+    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       border: 'none',
       boxShadow: 'none',
       height: '0',
@@ -548,14 +594,14 @@ export const search = style([
   {
     transition,
     selectors: {
-      [`.${page.new} &, .${page.search} &, .${page.select} &`]: {
+      [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
         position: 'absolute',
         padding: '6px 10px',
         top: '28px',
         textOverflow: 'ellipsis',
         overflow: 'hidden',
       },
-      [`.${page.search} &, .${page.select} &`]: {
+      [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
         top: '42px',
         fontSize: '32px',
         height: '72px',
@@ -567,16 +613,30 @@ export const search = style([
         borderRadius: '16px',
         boxShadow: '0px 2px 4px rgba(16, 24, 40, 0.05)',
       },
+      [`.${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+        color: 'white',
+      },
     },
   },
 ])
+
+export const autocompleteContent = style({
+  position: 'absolute',
+  color: 'transparent',
+  transition,
+  selectors: {
+    [`.${page.autocomplete} &, .${page.filteredSelect} &`]: {
+      color: gray.new,
+    },
+  },
+})
 
 export const inputIcon = style({
   fontSize: '27px',
   color: darkgray.old,
   transition,
   selectors: {
-    [`.${page.new} &, .${page.search} &, .${page.select} &`]: {
+    [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       width: '0',
       overflow: 'hidden',
     },
@@ -593,15 +653,18 @@ export const searchIcon = style([
         paddingRight: '10px',
         color: darkblue,
       },
-      [`.${page.new} &, .${page.search} &, .${page.select} &`]: {
+      [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
         width: '20px',
         paddingRight: '0px',
         color: darkgray.new,
       },
-      [`.${page.search} &, .${page.select} &`]: {
+      [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
         fontSize: '32px',
         width: '32px',
         height: '32px',
+      },
+      [`.${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+        color: 'white',
       },
     },
   },
@@ -611,6 +674,21 @@ export const statusChevron = style({
   fontSize: '7px',
   color: gray.old,
   transform: 'rotate(-90deg) translateY(16px)',
+})
+
+export const selectChevron = style({
+  position: 'absolute',
+  transform: 'rotate(-90deg)',
+  fontSize: '24px',
+  right: '24px',
+  color: darkgray.new,
+  width: '0',
+  transition,
+  selectors: {
+    [`.${page.select} &, .${page.filteredSelect} &`]: {
+      width: '24px',
+    },
+  },
 })
 
 export const dropdown = style({
@@ -624,11 +702,14 @@ export const dropdown = style({
   width: '100%',
   transition,
   selectors: {
-    [`.${page.select} &`]: {
+    [`.${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       fontSize: '32px',
       height: '261px',
       boxShadow: '0px 8px 8px -4px #1018280A, 0px 20px 24px -4px #1018281A',
       borderRadius: '16px',
+    },
+    [`.${page.autocomplete} &, .${page.filteredSelect} &`]: {
+      height: '174px',
     },
   },
 })
@@ -636,6 +717,21 @@ export const dropdown = style({
 export const option = style({
   padding: '24px 32px',
 })
+
+export const optionFiltered = style([
+  option,
+  {
+    overflow: 'hidden',
+    height: '39px',
+    transition,
+    selectors: {
+      [`.${page.autocomplete} &, .${page.filteredSelect} &`]: {
+        height: '0',
+        padding: '0 32px',
+      },
+    },
+  },
+])
 
 // TABLE
 
@@ -654,8 +750,13 @@ export const table = style({
       borderRadius: '8px',
       border: 'solid 1px #dfe5f2',
       width: '690px',
+      height: '397px',
     },
-    [`.${page.search} &, .${page.select} &`]: { height: 0 },
+    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+      marginTop: '0',
+      height: 0,
+      borderColor: 'white',
+    },
   },
 })
 
@@ -671,15 +772,20 @@ export const tableHead = style({
       width: '100%',
       gridTemplateColumns: '115px 130px 148px 280px 110px 145px 200px',
     },
-    [`.${page.new} &`]: {
+    [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       background: lightgray.new,
       color: gray.new,
       fontSize: '13px',
       borderBottom: '1px solid #dfe5f2',
       width: '690px',
       gridTemplateColumns: '115px 130px 148px 330px 110px 145px 200px',
+      height: '46px',
     },
-    [`.${page.search} &, .${page.select} &`]: { height: 0 },
+    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+      height: 0,
+      width: '0',
+      borderBottomColor: 'white',
+    },
   },
 })
 
@@ -716,13 +822,18 @@ export const tableRow = style({
       width: '100%',
       gridTemplateColumns: '115px 130px 148px 280px 110px 145px 200px',
     },
-    [`.${page.new} &`]: {
+    [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       background: 'white',
       borderBottom: '1px solid #dfe5f2',
       width: '690px',
       gridTemplateColumns: '115px 130px 148px 330px 110px 145px 200px',
+      height: '92px',
     },
-    [`.${page.search} &, .${page.select} &`]: { height: 0 },
+    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+      height: 0,
+      width: '0',
+      borderBottomColor: 'white',
+    },
   },
 })
 

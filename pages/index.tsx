@@ -13,6 +13,7 @@ type Slide =
   | 'search'
   | 'select'
   | 'autocomplete'
+  | 'filteredSelect'
 
 const previous = (current: Slide): Slide => {
   switch (current) {
@@ -30,6 +31,8 @@ const previous = (current: Slide): Slide => {
       return 'search'
     case 'autocomplete':
       return 'select'
+    case 'filteredSelect':
+      return 'autocomplete'
   }
 }
 
@@ -48,7 +51,9 @@ const next = (current: Slide): Slide => {
     case 'select':
       return 'autocomplete'
     case 'autocomplete':
-      return 'autocomplete'
+      return 'filteredSelect'
+    case 'filteredSelect':
+      return 'filteredSelect'
   }
 }
 
