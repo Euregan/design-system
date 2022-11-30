@@ -1,19 +1,7 @@
 import { useState } from 'react'
 import Background from '../ui/Background'
-import DemoSite from '../ui/DemoSite'
-import Browser from '../ui/Browser'
-
-import DesignSystemIllustration from '../slides/DesignSystemIllustration'
-
-type Slide =
-  | 'illustration'
-  | 'page'
-  | 'old'
-  | 'new'
-  | 'search'
-  | 'select'
-  | 'autocomplete'
-  | 'filteredSelect'
+import Deck from '../ui/Deck'
+import type { Slide } from '../ui/Deck'
 
 const previous = (current: Slide): Slide => {
   switch (current) {
@@ -58,25 +46,14 @@ const next = (current: Slide): Slide => {
 }
 
 const IndexPage = () => {
-  const [illustrationDisplay, setIllustrationDisplay] = useState<
-    'illustration' | 'page'
-  >('illustration')
-  const [demoDisplay, setDemoDisplay] = useState<'old' | 'new'>('old')
   const [slide, setSlide] = useState<Slide>('page')
 
   return (
     <Background
       onRightClick={() => setSlide(previous(slide))}
-      onClick={() => {
-        setIllustrationDisplay(
-          illustrationDisplay === 'illustration' ? 'page' : 'illustration'
-        )
-        setDemoDisplay(demoDisplay === 'old' ? 'new' : 'old')
-        setSlide(next(slide))
-      }}
+      onLeftClick={() => setSlide(next(slide))}
     >
-      {false && <DesignSystemIllustration display={illustrationDisplay} />}
-      <DemoSite display={slide} />
+      <Deck display={slide} />
     </Background>
   )
 }

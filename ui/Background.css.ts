@@ -1,7 +1,7 @@
 import { globalStyle, style } from '@vanilla-extract/css'
 
 export const background = style({
-  backgroundColor: '#e2e8ed',
+  backgroundColor: '#d9dbdd',
   width: '100%',
   height: '100%',
   display: 'flex',

@@ -4,20 +4,20 @@ import * as styles from './Background.css'
 
 interface Props {
   children: ReactNode
-  onClick?: () => void
+  onLeftClick?: () => void
   onRightClick?: () => void
 }
 
-export const Background = ({ children, onClick, onRightClick }: Props) => {
+export const Background = ({ children, onLeftClick, onRightClick }: Props) => {
   useEffect(() => {
-    if (onClick) {
-      document.addEventListener('click', onClick)
+    if (onLeftClick) {
+      document.addEventListener('click', onLeftClick)
 
       return () => {
-        document.removeEventListener('click', onClick)
+        document.removeEventListener('click', onLeftClick)
       }
     }
-  }, [onClick])
+  }, [onLeftClick])
   useEffect(() => {
     if (onRightClick) {
       const handler = (event: MouseEvent) => {

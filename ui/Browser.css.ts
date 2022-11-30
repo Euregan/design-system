@@ -1,66 +1,94 @@
-import { style } from '@vanilla-extract/css'
+import { style, styleVariants } from '@vanilla-extract/css'
 
-export const topBar = style({
-  width: '100vw',
-  height: '7vh',
+const transition = 'all 0.5s'
+
+const viewport = {
+  width: '1280px',
+  height: '723px',
+}
+
+const topbarHeight = '50px'
+
+const browserBase = style({
+  overflow: 'hidden',
+  transition,
+})
+
+export const browser = styleVariants({
+  displayed: [
+    browserBase,
+    {
+      width: viewport.width,
+      height: `calc(${viewport.height} + ${topbarHeight})`,
+      borderRadius: 10,
+    },
+  ],
+  hidden: [
+    browserBase,
+    {
+      width: '100vw',
+      height: '100vh',
+      borderRadius: 0,
+    },
+  ],
+})
+
+export const topbar = style({
+  width: '100%',
+  fontFamily: 'sans-serif',
   backgroundColor: '#22252B',
+  display: 'grid',
+  gridTemplateColumns: '1fr 50% 1fr',
+  alignItems: 'center',
+  padding: '0 20px',
+  overflow: 'hidden',
+  transition,
+  selectors: {
+    [`.${browser.displayed} &`]: {
+      height: topbarHeight,
+    },
+    [`.${browser.hidden} &`]: {
+      height: 0,
+    },
+  },
 })
 
 export const buttons = style({
-  paddingTop: '3vh',
   display: 'flex',
-  justifyContent: 'space-evenly',
-  width: '10vw',
-  marginLeft: '10px',
+  gap: 20,
 })
 
-export const redButtons = style({
+const buttonBase = style({
   borderRadius: '50%',
   height: '12px',
   width: '12px',
-  display: 'inline-block',
-  position: 'relative',
-  right: '0',
-  backgroundColor: '#ED594A;',
 })
 
-export const greenButtons = style({
-  borderRadius: '50%',
-  height: '12px',
-  width: '12px',
-  display: 'inline-block',
-  position: 'relative',
-  right: '0',
-  backgroundColor: '#5AC05A',
-})
-
-export const yellowButtons = style({
-  borderRadius: '50%',
-  height: '12px',
-  width: '12px',
-  display: 'inline-block',
-  position: 'relative',
-  right: '0',
-  backgroundColor: '#FDD800',
+export const button = styleVariants({
+  red: [
+    buttonBase,
+    {
+      backgroundColor: '#ED594A;',
+    },
+  ],
+  yellow: [
+    buttonBase,
+    {
+      backgroundColor: '#FDD800',
+    },
+  ],
+  green: [
+    buttonBase,
+    {
+      backgroundColor: '#5AC05A',
+    },
+  ],
 })
 
 export const url = style({
-  position: 'absolute',
-  top: '23px',
-  left: '25%',
-  width: '50%',
-  padding: '5px',
-  borderRadius: '40px',
+  padding: '5px 20px',
+  borderRadius: 40,
   backgroundColor: '#3b4049',
-  margin: '0',
-})
-
-export const paragraph = style({
-  margin: '0',
-  paddingLeft: '25px',
-  top: '2px',
-  position: 'relative',
   color: '#F8F8F8',
-  fontWeight: '300',
   letterSpacing: '0.03em',
 })

@@ -90,7 +90,6 @@ export const menu = style({
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
-  overflow: 'hidden',
   width: '100%',
   transition,
   selectors: {
@@ -108,6 +107,7 @@ export const menu = style({
       boxShadow: '0px 0px 12px 10px rgba(16, 24, 40, 0.03)',
     },
     [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+      overflow: 'hidden',
       width: 0,
     },
   },
@@ -493,6 +493,7 @@ export const newLabel = style([
     selectors: {
       [`.${page.old} &`]: {
         height: 0,
+        width: 0,
       },
       [`.${page.new} &`]: {
         height: '20px',
@@ -513,6 +514,9 @@ export const selectLabel = style([
   {
     height: 0,
     selectors: {
+      [`.${page.old} &`]: {
+        width: 0,
+      },
       [`.${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
         fontSize: '28px',
         height: '34px',
@@ -594,6 +598,13 @@ export const search = style([
   {
     transition,
     selectors: {
+      [`.${page.old} &`]: {
+        height: 34,
+      },
+      [`.${page.new} &`]: {
+        display: 'flex',
+        gap: 4,
+      },
       [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
         position: 'absolute',
         padding: '6px 10px',
@@ -671,9 +682,27 @@ export const searchIcon = style([
 ])
 
 export const statusChevron = style({
+  position: 'absolute',
   fontSize: '7px',
-  color: gray.old,
-  transform: 'rotate(-90deg) translateY(16px)',
+  color: 'transparent',
+  transform: 'rotate(-90deg)',
+  transition,
+  selectors: {
+    [`.${page.old} &`]: {
+      color: gray.old,
+      width: '12px',
+      fontSize: '12px',
+      right: '16px',
+      top: '9px',
+    },
+    [`.${page.new} &`]: {
+      color: darkgray.new,
+      width: '12px',
+      fontSize: '12px',
+      right: '12px',
+      top: '12px',
+    },
+  },
 })
 
 export const selectChevron = style({
