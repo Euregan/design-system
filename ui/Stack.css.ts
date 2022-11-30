@@ -29,39 +29,53 @@ export const stack = styleVariants({
   eslint: [stackBase, {}],
 })
 
-export const reactAria = style({
+const library = style({
   transition,
   opacity: 0,
-  selectors: {
-    [`.${stack.reactAria} &, .${stack.vanillaExtract} &, .${stack.storybook} &, .${stack.eslint} &`]: {
-      opacity: 1,
+  display: 'flex',
+  alignItems: 'center',
+  gap: 20,
+})
+
+export const icon = style({ height: 50, width: 50 })
+
+export const reactAria = style([
+  library,
+  {
+    selectors: {
+      [`.${stack.reactAria} &, .${stack.vanillaExtract} &, .${stack.storybook} &, .${stack.eslint} &`]: {
+        opacity: 1,
+      },
     },
   },
-})
-export const vanillaExtract = style({
-  transition,
-  opacity: 0,
-  selectors: {
-    [`.${stack.vanillaExtract} &, .${stack.storybook} &, .${stack.eslint} &`]: {
-      opacity: 1,
+])
+export const vanillaExtract = style([
+  library,
+  {
+    selectors: {
+      [`.${stack.vanillaExtract} &, .${stack.storybook} &, .${stack.eslint} &`]: {
+        opacity: 1,
+      },
     },
   },
-})
-export const storybook = style({
-  transition,
-  opacity: 0,
-  selectors: {
-    [`.${stack.storybook} &, .${stack.eslint} &`]: {
-      opacity: 1,
+])
+export const storybook = style([
+  library,
+  {
+    selectors: {
+      [`.${stack.storybook} &, .${stack.eslint} &`]: {
+        opacity: 1,
+      },
     },
   },
-})
-export const eslint = style({
-  transition,
-  opacity: 0,
-  selectors: {
-    [`.${stack.eslint} &`]: {
-      opacity: 1,
+])
+export const eslint = style([
+  library,
+  {
+    selectors: {
+      [`.${stack.eslint} &`]: {
+        opacity: 1,
+      },
     },
   },
-})
+])
