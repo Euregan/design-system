@@ -1,14 +1,9 @@
 import Browser from './Browser'
+import type { Slide } from './Deck'
 import * as styles from './DemoSite.css'
 
 interface Props {
-  display:
-    | 'old'
-    | 'new'
-    | 'search'
-    | 'select'
-    | 'autocomplete'
-    | 'filteredSelect'
+  display: Exclude<Slide, 'illustration' | 'page'>
 }
 
 const DemoSite = ({ display }: Props) => (

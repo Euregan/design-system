@@ -81,6 +81,15 @@ export const page = styleVariants({
       background: 'white',
     },
   ],
+  filters: [
+    pageBase,
+    {
+      gridTemplateColumns: '0 auto',
+      alignItems: 'center',
+      justifyItems: 'center',
+      background: 'white',
+    },
+  ],
 })
 
 // NAV
@@ -106,7 +115,7 @@ export const menu = style({
       gap: '8px',
       boxShadow: '0px 0px 12px 10px rgba(16, 24, 40, 0.03)',
     },
-    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+    [`.${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       overflow: 'hidden',
       width: 0,
     },
@@ -223,7 +232,7 @@ export const main = style({
     [`.${page.new} &`]: {
       background: 'white',
     },
-    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+    [`.${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       gridTemplateRows: '0 auto',
     },
   },
@@ -254,7 +263,7 @@ export const topbar = style({
       height: '40px',
       margin: '0 146.5px',
     },
-    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+    [`.${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       height: 0,
       overflow: 'hidden',
     },
@@ -271,7 +280,7 @@ export const breadcrumb = style({
     [`.${page.old} &`]: {
       width: '0',
     },
-    [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+    [`.${page.new} &, .${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       width: '120px',
       color: darkgray.new,
     },
@@ -294,7 +303,7 @@ export const organization = style({
     [`.${page.old} &`]: {
       left: '65px',
     },
-    [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+    [`.${page.new} &, .${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       left: '470px',
     },
   },
@@ -335,7 +344,7 @@ export const product = style({
       fontSize: '18px',
       left: '245px',
     },
-    [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+    [`.${page.new} &, .${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       fontSize: '13px',
       left: '355px',
     },
@@ -364,7 +373,7 @@ export const options = style({
     [`.${page.old} &`]: {
       left: '1200px',
     },
-    [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+    [`.${page.new} &, .${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       left: '650px',
     },
   },
@@ -403,7 +412,7 @@ export const title = style({
       fontSize: '32px',
       height: '39px',
     },
-    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+    [`.${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       height: '0',
     },
   },
@@ -427,6 +436,11 @@ export const filters = style({
       gap: '0',
       gridTemplateColumns: '0 0 0 400px',
     },
+    [`.${page.filters} &`]: {
+      paddingTop: '0',
+      gap: '16px',
+      gridTemplateColumns: '200px 200px 200px 200px',
+    },
   },
 })
 
@@ -446,7 +460,7 @@ export const input = style({
       alignItems: 'flex-start',
       width: '100%',
     },
-    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+    [`.${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       width: '100%',
     },
   },
@@ -457,14 +471,16 @@ export const searchInput = style([
   {
     transition,
     selectors: {
-      [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+      [`.${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
         flexDirection: 'column',
         gap: 0,
         height: '114px',
-        width: '400px',
       },
       [`.${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
         position: 'relative',
+      },
+      [`.${page.filters} &`]: {
+        width: '200px',
       },
     },
   },
@@ -478,10 +494,16 @@ export const label = style({
       color: gray.old,
       fontSize: '18px',
     },
-    [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+    [`.${page.new} &, .${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       color: '#4c5a76',
       fontWeight: 500,
       fontSize: '16px',
+    },
+    [`.${page.filters} &`]: {
+      color: '#4c5a76',
+      fontWeight: 500,
+      fontSize: '14px',
+      height: '17px',
     },
   },
 })
@@ -498,12 +520,16 @@ export const newLabel = style([
       [`.${page.new} &`]: {
         height: '20px',
       },
-      [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+      [`.${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
         fontSize: '28px',
         height: '34px',
       },
       [`.${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
         height: '0',
+      },
+      [`.${page.filters} &`]: {
+        fontSize: '14px',
+        height: '17px',
       },
     },
   },
@@ -521,6 +547,9 @@ export const selectLabel = style([
         fontSize: '28px',
         height: '34px',
       },
+      [`.${page.filters} &`]: {
+        fontSize: 0,
+      },
     },
   },
 ])
@@ -535,8 +564,14 @@ export const placeholderToLabel = style({
       fontWeight: 500,
       fontSize: '16px',
     },
-    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+    [`.${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       height: '0',
+    },
+    [`.${page.filters} &`]: {
+      color: '#4c5a76',
+      fontWeight: 500,
+      fontSize: '14px',
+      height: '17px',
     },
   },
 })
@@ -549,7 +584,7 @@ export const inputContent = style({
       height: 0,
       overflow: 'hidden',
     },
-    [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+    [`.${page.new} &, .${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       boxSizing: 'border-box',
       width: ' 100%',
       height: '36px',
@@ -557,10 +592,23 @@ export const inputContent = style({
       borderRadius: '8px',
       boxShadow: '0px 1px 2px 0px #1018280D',
     },
-    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+    [`.${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       border: 'none',
       boxShadow: 'none',
       height: '0',
+    },
+    [`.${page.filters} &`]: {
+      position: 'absolute',
+      display: 'flex',
+      alignItems: 'center',
+      top: '21px',
+      fontSize: '16px',
+      height: '36px',
+      padding: '0 10px',
+      gap: '10px',
+      border: '1px solid #dfe5f2',
+      borderRadius: '8px',
+      boxShadow: '0px 1px 2px rgba(16, 24, 40, 0.05)',
     },
   },
 })
@@ -574,7 +622,10 @@ export const select = style([
         position: 'absolute',
         top: '28px',
       },
-      [`.${page.search} &`]: { height: 0 },
+      [`.${page.search} &, .${page.filters} &`]: { height: 0 },
+      [`.${page.filters} &`]: {
+        height: '36px',
+      },
     },
   },
 ])
@@ -605,14 +656,14 @@ export const search = style([
         display: 'flex',
         gap: 4,
       },
-      [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+      [`.${page.new} &, .${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
         position: 'absolute',
         padding: '6px 10px',
         top: '28px',
         textOverflow: 'ellipsis',
         overflow: 'hidden',
       },
-      [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+      [`.${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
         top: '42px',
         fontSize: '32px',
         height: '72px',
@@ -626,6 +677,16 @@ export const search = style([
       },
       [`.${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
         color: 'white',
+      },
+      [`.${page.filters} &`]: {
+        top: '21px',
+        fontSize: '16px',
+        height: '36px',
+        padding: '0 10px',
+        gap: '10px',
+        border: '1px solid #dfe5f2',
+        borderRadius: '8px',
+        boxShadow: '0px 1px 2px rgba(16, 24, 40, 0.05)',
       },
     },
   },
@@ -647,7 +708,7 @@ export const inputIcon = style({
   color: darkgray.old,
   transition,
   selectors: {
-    [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+    [`.${page.new} &, .${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       width: '0',
       overflow: 'hidden',
     },
@@ -664,18 +725,23 @@ export const searchIcon = style([
         paddingRight: '10px',
         color: darkblue,
       },
-      [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+      [`.${page.new} &, .${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
         width: '20px',
         paddingRight: '0px',
         color: darkgray.new,
       },
-      [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+      [`.${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
         fontSize: '32px',
         width: '32px',
         height: '32px',
       },
       [`.${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
         color: 'white',
+      },
+      [`.${page.filters} &`]: {
+        fontSize: '16px',
+        width: '16px',
+        height: '16px',
       },
     },
   },
@@ -781,7 +847,7 @@ export const table = style({
       width: '690px',
       height: '397px',
     },
-    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+    [`.${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       marginTop: '0',
       height: 0,
       borderColor: 'white',
@@ -801,7 +867,7 @@ export const tableHead = style({
       width: '100%',
       gridTemplateColumns: '115px 130px 148px 280px 110px 145px 200px',
     },
-    [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+    [`.${page.new} &, .${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       background: lightgray.new,
       color: gray.new,
       fontSize: '13px',
@@ -810,7 +876,7 @@ export const tableHead = style({
       gridTemplateColumns: '115px 130px 148px 330px 110px 145px 200px',
       height: '46px',
     },
-    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+    [`.${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       height: 0,
       width: '0',
       borderBottomColor: 'white',
@@ -851,14 +917,14 @@ export const tableRow = style({
       width: '100%',
       gridTemplateColumns: '115px 130px 148px 280px 110px 145px 200px',
     },
-    [`.${page.new} &, .${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+    [`.${page.new} &, .${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       background: 'white',
       borderBottom: '1px solid #dfe5f2',
       width: '690px',
       gridTemplateColumns: '115px 130px 148px 330px 110px 145px 200px',
       height: '92px',
     },
-    [`.${page.search} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
+    [`.${page.search} &, .${page.filters} &, .${page.select} &, .${page.autocomplete} &, .${page.filteredSelect} &`]: {
       height: 0,
       width: '0',
       borderBottomColor: 'white',

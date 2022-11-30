@@ -21,6 +21,8 @@ const previous = (current: Slide): Slide => {
       return 'select'
     case 'filteredSelect':
       return 'autocomplete'
+    case 'filters':
+      return 'filteredSelect'
   }
 }
 
@@ -41,7 +43,9 @@ const next = (current: Slide): Slide => {
     case 'autocomplete':
       return 'filteredSelect'
     case 'filteredSelect':
-      return 'filteredSelect'
+      return 'filters'
+    case 'filters':
+      return 'filters'
   }
 }
 

@@ -11,6 +11,7 @@ export type Slide =
   | 'select'
   | 'autocomplete'
   | 'filteredSelect'
+  | 'filters'
 
 interface Props {
   display: Slide
@@ -28,6 +29,7 @@ const Deck = ({ display }: Props): ReactElement => {
     case 'select':
     case 'autocomplete':
     case 'filteredSelect':
+    case 'filters':
       return <DemoSite display={display} />
   }
 }
