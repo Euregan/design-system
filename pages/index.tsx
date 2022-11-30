@@ -23,6 +23,16 @@ const previous = (current: Slide): Slide => {
       return 'autocomplete'
     case 'filters':
       return 'filteredSelect'
+    case 'stack':
+      return 'filters'
+    case 'reactAria':
+      return 'stack'
+    case 'vanillaExtract':
+      return 'reactAria'
+    case 'storybook':
+      return 'vanillaExtract'
+    case 'eslint':
+      return 'storybook'
   }
 }
 
@@ -45,7 +55,17 @@ const next = (current: Slide): Slide => {
     case 'filteredSelect':
       return 'filters'
     case 'filters':
-      return 'filters'
+      return 'stack'
+    case 'stack':
+      return 'reactAria'
+    case 'reactAria':
+      return 'vanillaExtract'
+    case 'vanillaExtract':
+      return 'storybook'
+    case 'storybook':
+      return 'eslint'
+    case 'eslint':
+      return 'eslint'
   }
 }
 

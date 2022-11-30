@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react'
 import DesignSystemIllustration from './DesignSystemIllustration'
 import DemoSite from './DemoSite'
+import Stack from './Stack'
 
 export type Slide =
   | 'illustration'
@@ -12,6 +13,11 @@ export type Slide =
   | 'autocomplete'
   | 'filteredSelect'
   | 'filters'
+  | 'stack'
+  | 'reactAria'
+  | 'vanillaExtract'
+  | 'storybook'
+  | 'eslint'
 
 interface Props {
   display: Slide
@@ -31,6 +37,13 @@ const Deck = ({ display }: Props): ReactElement => {
     case 'filteredSelect':
     case 'filters':
       return <DemoSite display={display} />
+
+    case 'stack':
+    case 'reactAria':
+    case 'vanillaExtract':
+    case 'storybook':
+    case 'eslint':
+      return <Stack display={display} />
   }
 }
 

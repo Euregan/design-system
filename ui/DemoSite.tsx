@@ -3,7 +3,16 @@ import type { Slide } from './Deck'
 import * as styles from './DemoSite.css'
 
 interface Props {
-  display: Exclude<Slide, 'illustration' | 'page'>
+  display: Exclude<
+    Slide,
+    | 'illustration'
+    | 'page'
+    | 'stack'
+    | 'reactAria'
+    | 'vanillaExtract'
+    | 'storybook'
+    | 'eslint'
+  >
 }
 
 const DemoSite = ({ display }: Props) => (
